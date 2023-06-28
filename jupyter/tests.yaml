@@ -16,6 +16,11 @@ fileExistenceTests:
     permissions: "-rwxr-xr-x"
     uid: 0
     gid: 0
+  - name: "jupyterhub config"
+    path: "/home/onyxia/.jupyter/jupyter_lab_config.py"
+    shouldExist: true
+    uid: 1000
+    gid: 100
 commandTests:
   - name: "Does the binary exists?"
     command: "which"
