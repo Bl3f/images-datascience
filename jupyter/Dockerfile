@@ -25,16 +25,14 @@ RUN /opt/install-jupyterlab.sh && \
         mamba clean --all -f -y; \
     fi
 
-COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${USER_CONFIG_DIR}/jupyter_lab_config.py
+COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${HOME}/.jupyter/jupyter_lab_config.py
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
     sudo apt-get install -y nodejs && \
     npm install -g configurable-http-proxy
 
-RUN pip install oauthenticator
-
 USER 1000
 
 EXPOSE 8888
 
-CMD ["jupyterhub", "-f", "${USER_CONFIG_DIR}/jupyter_lab_config.py"]
+CMD ["jupyterhub", "-f", "${HOME}/.jupyter/jupyter_lab_config.py"]

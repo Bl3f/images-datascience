@@ -15,3 +15,4 @@ dependencies:
   - requests
   - s3fs
   - wheel
+  - oauthenticator
