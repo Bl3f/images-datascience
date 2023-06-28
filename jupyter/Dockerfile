@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=inseefrlab/onyxia-python-datascience
+ARG BASE_IMAGE=cblefari/onyxia-python-datascience
 FROM $BASE_IMAGE
 
 SHELL ["/bin/bash", "-c"]

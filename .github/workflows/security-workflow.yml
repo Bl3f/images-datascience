@@ -8,14 +8,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image: ['inseefrlab/onyxia-base:latest', 'inseefrlab/onyxia-base:latest-gpu',
-                 'inseefrlab/onyxia-python:latest', 'inseefrlab/onyxia-python:latest-gpu',
-                 'inseefrlab/onyxia-jupyter-python:latest', 'inseefrlab/onyxia-jupyter-python:latest-gpu',
-                 'inseefrlab/onyxia-vscode-python:latest', 'inseefrlab/onyxia-vscode-python:latest-gpu',
-                 'inseefrlab/onyxia-pyspark:latest', 'inseefrlab/onyxia-pyspark:latest-gpu',
-                 'inseefrlab/onyxia-rstudio:latest', 'inseefrlab/onyxia-rstudio:latest-gpu',
-                 'inseefrlab/onyxia-sparkr:latest', 'inseefrlab/onyxia-sparkr:latest-gpu',
-                 'inseefrlab/onyxia-rstudio-sparkr:latest', 'inseefrlab/onyxia-rstudio-sparkr:latest-gpu']
+        image: ['cblefari/onyxia-base:latest', 'cblefari/onyxia-base:latest-gpu',
+                 'cblefari/onyxia-python:latest', 'cblefari/onyxia-python:latest-gpu',
+                 'cblefari/onyxia-jupyter-python:latest', 'cblefari/onyxia-jupyter-python:latest-gpu',
+                 'cblefari/onyxia-vscode-python:latest', 'cblefari/onyxia-vscode-python:latest-gpu',
+                 'cblefari/onyxia-pyspark:latest', 'cblefari/onyxia-pyspark:latest-gpu',
+                 'cblefari/onyxia-rstudio:latest', 'cblefari/onyxia-rstudio:latest-gpu',
+                 'cblefari/onyxia-sparkr:latest', 'cblefari/onyxia-sparkr:latest-gpu',
+                 'cblefari/onyxia-rstudio-sparkr:latest', 'cblefari/onyxia-rstudio-sparkr:latest-gpu']
     name: scan images
     runs-on: ubuntu-20.04
     steps:
