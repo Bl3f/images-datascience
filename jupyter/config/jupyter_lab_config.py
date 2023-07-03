@@ -81,19 +81,49 @@ c = get_config()  # noqa
 ## Base class for Jupyter applications
 c.JupyterHub.spawner_class = 'jupyterhub.spawner.SimpleLocalProcessSpawner'
 
-import os
-from oauthenticator.generic import GenericOAuthenticator
 
-c.JupyterHub.authenticator_class = GenericOAuthenticator
-c.GenericOAuthenticator.client_id = os.getenv("KEYCLOAK_CLIENT_ID")
-c.GenericOAuthenticator.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
-c.GenericOAuthenticator.authorize_url = os.getenv("KEYCLOAK_AUTHORIZE_URL")
-c.GenericOAuthenticator.token_url = os.getenv("KEYCLOAK_TOKEN_URL")
-c.GenericOAuthenticator.userdata_url = os.getenv("KEYCLOAK_USERDATA_URL")
-c.GenericOAuthenticator.userdata_params = {'state': 'state'}
-c.GenericOAuthenticator.username_key = 'preferred_username'
-c.GenericOAuthenticator.scope = ['openid', 'profile']
-c.GenericOAuthenticator.tls_verify = os.getenv("KEYCLOAK_TLS", True)
+import os
+
+# Enable the authenticator
+c.JupyterHub.authenticator_class = 'keycloakauthenticator.KeyCloakAuthenticator'
+c.KeyCloakAuthenticator.client_id = os.getenv("KEYCLOAK_CLIENT_ID")
+c.KeyCloakAuthenticator.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
+c.KeyCloakAuthenticator.username_key = 'preferred_username'
+c.KeyCloakAuthenticator.userdata_params = {'state': 'state'}
+
+# URL to redirect to after logout is complete with auth provider.
+c.KeyCloakAuthenticator.authorize_url = os.getenv("KEYCLOAK_AUTHORIZE_URL")
+c.KeyCloakAuthenticator.token_url = os.getenv("KEYCLOAK_TOKEN_URL")
+c.KeyCloakAuthenticator.userdata_url = os.getenv("KEYCLOAK_USERDATA_URL")
+
+# Specify the issuer url, to get all the endpoints automatically from .well-known/openid-configuration
+c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
+
+# If you need to set a different scope, like adding the offline option for longer lived refresh token
+c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email', 'offline_access']
+# Only allow users with this specific roles (none, to allow all)
+c.KeyCloakAuthenticator.allowed_roles = []
+
+# Request access tokens for other services by passing their id's (this uses the token exchange mechanism)
+c.KeyCloakAuthenticator.exchange_tokens = ['minio']
+
+# If your authenticator needs extra configurations, set them in the pre-spawn hook
+def pre_spawn_hook(authenticator, spawner, auth_state):
+    spawner.environment['ACCESS_TOKEN'] = auth_state['exchanged_tokens']['minio']
+    # spawner.environment['OAUTH_INSPECTION_ENDPOINT'] = authenticator.userdata_url.replace('https://', '')
+    # spawner.user_uid = auth_state['oauth_user']['cern_uid']
+    # decoded_token = authenticator._decode_token(auth_state['access_token'])
+    #spawner.user_roles = authenticator.claim_roles_key(authenticator, decoded_token)
+c.KeyCloakAuthenticator.pre_spawn_hook = pre_spawn_hook
+
+#Configure token signature verification
+c.KeyCloakAuthenticator.check_signature = True
+c.KeyCloakAuthenticator.jwt_signing_algorithms = ["HS256", "RS256"]
+c.KeyCloakAuthenticator.tls_verify = os.getenv("KEYCLOAK_TLS", True)
+
+# Once a token is refreshed, by default jupyterhub does not trigger a refresh again (triggered when receiving any authenticated request) in `Authenticator.auth_refresh_age` seconds (default 5 minutes)
+# If you want to refresh the token less often, and align the refresh to your tokens expiration, which will also trigger the update of the oAuth/OIDC token, this value can be changed:
+c.KeyCloakAuthenticator.auth_refresh_age = 900 # 15 minutes
 
 
 ## Answer yes to any prompts.
