@@ -91,11 +91,6 @@ c.KeyCloakAuthenticator.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
 c.KeyCloakAuthenticator.username_key = 'preferred_username'
 c.KeyCloakAuthenticator.userdata_params = {'state': 'state'}
 
-# URL to redirect to after logout is complete with auth provider.
-c.KeyCloakAuthenticator.authorize_url = os.getenv("KEYCLOAK_AUTHORIZE_URL")
-c.KeyCloakAuthenticator.token_url = os.getenv("KEYCLOAK_TOKEN_URL")
-c.KeyCloakAuthenticator.userdata_url = os.getenv("KEYCLOAK_USERDATA_URL")
-
 # Specify the issuer url, to get all the endpoints automatically from .well-known/openid-configuration
 c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
 
