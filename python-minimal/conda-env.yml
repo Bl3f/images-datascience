@@ -12,8 +12,8 @@ dependencies:
   - nbformat
   - pip
   - pylint
-  - requests
   - s3fs
   - wheel
   - oauthenticator
   - keycloakauthenticator
+  - requests
