@@ -25,6 +25,8 @@ RUN /opt/install-jupyterlab.sh && \
         mamba clean --all -f -y; \
     fi
 
+RUN pip install keycloakauthenticator
+
 COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${HOME}/.jupyter/jupyter_lab_config.py
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \

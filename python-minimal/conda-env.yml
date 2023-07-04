@@ -16,4 +16,3 @@ dependencies:
   - s3fs
   - wheel
   - oauthenticator
-  - keycloakauthenticator
