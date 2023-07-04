@@ -117,7 +117,7 @@ def pre_spawn_hook(authenticator, spawner, auth_state):
 c.KeyCloakAuthenticator.pre_spawn_hook = pre_spawn_hook
 
 #Configure token signature verification
-c.KeyCloakAuthenticator.check_signature = True
+c.KeyCloakAuthenticator.check_signature = False
 c.KeyCloakAuthenticator.jwt_signing_algorithms = ["HS256", "RS256"]
 c.KeyCloakAuthenticator.tls_verify = os.getenv("KEYCLOAK_TLS", True)
 
