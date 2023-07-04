@@ -100,7 +100,7 @@ c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email']
 c.KeyCloakAuthenticator.allowed_roles = []
 
 # Request access tokens for other services by passing their id's (this uses the token exchange mechanism)
-c.KeyCloakAuthenticator.exchange_tokens = []
+c.KeyCloakAuthenticator.exchange_tokens = ["minio"]
 
 # If your authenticator needs extra configurations, set them in the pre-spawn hook
 def pre_spawn_hook(authenticator, spawner, auth_state):
