@@ -100,16 +100,16 @@ c.KeyCloakAuthenticator.userdata_url = os.getenv("KEYCLOAK_USERDATA_URL")
 c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
 
 # If you need to set a different scope, like adding the offline option for longer lived refresh token
-c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email', 'offline_access']
+c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email']
 # Only allow users with this specific roles (none, to allow all)
 c.KeyCloakAuthenticator.allowed_roles = []
 
 # Request access tokens for other services by passing their id's (this uses the token exchange mechanism)
-c.KeyCloakAuthenticator.exchange_tokens = ['minio']
+c.KeyCloakAuthenticator.exchange_tokens = []
 
 # If your authenticator needs extra configurations, set them in the pre-spawn hook
 def pre_spawn_hook(authenticator, spawner, auth_state):
-    spawner.environment['ACCESS_TOKEN'] = auth_state['exchanged_tokens']['minio']
+    spawner.environment['ACCESS_TOKEN'] = auth_state['access_token']
     # spawner.environment['OAUTH_INSPECTION_ENDPOINT'] = authenticator.userdata_url.replace('https://', '')
     # spawner.user_uid = auth_state['oauth_user']['cern_uid']
     # decoded_token = authenticator._decode_token(auth_state['access_token'])
