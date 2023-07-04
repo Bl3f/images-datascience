@@ -91,11 +91,6 @@ c.KeyCloakAuthenticator.client_secret = os.getenv("KEYCLOAK_CLIENT_SECRET")
 c.KeyCloakAuthenticator.username_key = 'preferred_username'
 c.KeyCloakAuthenticator.userdata_params = {'state': 'state'}
 
-# URL to redirect to after logout is complete with auth provider.
-c.KeyCloakAuthenticator.authorize_url = os.getenv("KEYCLOAK_AUTHORIZE_URL")
-c.KeyCloakAuthenticator.token_url = os.getenv("KEYCLOAK_TOKEN_URL")
-c.KeyCloakAuthenticator.userdata_url = os.getenv("KEYCLOAK_USERDATA_URL")
-
 # Specify the issuer url, to get all the endpoints automatically from .well-known/openid-configuration
 c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
 
@@ -125,6 +120,17 @@ c.KeyCloakAuthenticator.tls_verify = os.getenv("KEYCLOAK_TLS", True)
 # If you want to refresh the token less often, and align the refresh to your tokens expiration, which will also trigger the update of the oAuth/OIDC token, this value can be changed:
 c.KeyCloakAuthenticator.auth_refresh_age = 900 # 15 minutes
 
+# Override Server Rules to allow a user to read their own auth_state
+c.JupyterHub.load_roles = [
+    {
+        'name': 'user',
+        'scopes': ["self", "admin:auth_state!user"],
+    },
+    {
+        'name': 'server',
+        'scopes': ["access:servers!user", "read:users:activity!user", "users:activity!user", "admin:auth_state!user"],
+    }
+]
 
 ## Answer yes to any prompts.
 #  Default: False
