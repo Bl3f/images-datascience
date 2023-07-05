@@ -9,6 +9,7 @@ jobs:
       image: jupyter-python
       context: jupyter
       test: true
+      base_image: cblefari/python-datascience
       python_version_1: 3.10.9
       branch: ${{ github.ref }}
     secrets:
