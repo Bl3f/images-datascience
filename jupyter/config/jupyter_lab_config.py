@@ -104,7 +104,7 @@ c.KeyCloakAuthenticator.exchange_tokens = ["minio"]
 
 # If your authenticator needs extra configurations, set them in the pre-spawn hook
 def pre_spawn_hook(authenticator, spawner, auth_state):
-    spawner.environment['ACCESS_TOKEN'] = auth_state['access_token']
+    spawner.environment['PROJECT_HOSTNAME'] = os.getenv("PROJECT_HOSTNAME")
     # spawner.environment['OAUTH_INSPECTION_ENDPOINT'] = authenticator.userdata_url.replace('https://', '')
     # spawner.user_uid = auth_state['oauth_user']['cern_uid']
     # decoded_token = authenticator._decode_token(auth_state['access_token'])

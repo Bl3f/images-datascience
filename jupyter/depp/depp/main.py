@@ -4,8 +4,8 @@ import boto3
 import xml.etree.ElementTree as ET
 
 
-def get_minio_client(project_id):
-    base_url = f"https://{project_id}.idee.depp.in.adc.education.fr"
+def get_minio_client():
+    base_url = f"https://{os.environ['PROJECT_HOSTNAME']}"
     minio_url = "https://minio-idee.depp.in.adc.education.fr/"
     headers = {
         'Authorization': 'token %s' % os.environ["JPY_API_TOKEN"]
@@ -34,7 +34,6 @@ def get_minio_client(project_id):
     accessKeyId = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}AccessKeyId').text
     secretAccessKey = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}SecretAccessKey').text
     sessionToken = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}SessionToken').text
-    expiration = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}Expiration').text
 
     s3_client = boto3.client(
         's3',
