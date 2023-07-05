@@ -1,0 +1,15 @@
+name: Build and push jupyter images
+
+jobs:
+  jupyter-python:
+    uses: ./.github/workflows/main-workflow-template.yml
+    with:
+      image: jupyter-python
+      context: jupyter
+      test: true
+      python_version_1: 3.10.9
+      branch: ${{ github.ref }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
