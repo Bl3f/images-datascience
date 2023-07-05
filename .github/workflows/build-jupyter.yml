@@ -1,5 +1,7 @@
 name: Build and push jupyter images
 
+on: push
+
 jobs:
   jupyter-python:
     uses: ./.github/workflows/main-workflow-template.yml
