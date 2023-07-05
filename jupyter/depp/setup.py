@@ -9,8 +9,6 @@ setup(
     url='https://blef.fr',
     install_requires=[
         'requests',
-        'os',
         'boto3',
-        'xml',
     ],
 )
