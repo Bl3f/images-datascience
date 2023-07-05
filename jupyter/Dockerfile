@@ -33,6 +33,9 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
     sudo apt-get install -y nodejs && \
     npm install -g configurable-http-proxy
 
+COPY depp/ ${HOME}/depp
+RUN pip install -e ${HOME}/depp
+
 USER 1000
 
 EXPOSE 8888
