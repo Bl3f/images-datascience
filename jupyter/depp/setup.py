@@ -7,7 +7,7 @@ setup(
     author='Christophe Blefari',
     author_email='christophe.blefari@gmail.com',
     url='https://blef.fr',
-    packages=[
+    install_requires=[
         'requests',
         'os',
         'boto3',
