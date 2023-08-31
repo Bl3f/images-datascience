@@ -2,9 +2,10 @@ import requests
 import os
 import boto3
 import xml.etree.ElementTree as ET
+import pandas
 
 
-def get_minio_client():
+def _get_secrets():
     base_url = f"https://{os.environ['PROJECT_HOSTNAME']}"
     minio_url = "https://minio-idee.depp.in.adc.education.fr/"
     headers = {
@@ -35,6 +36,23 @@ def get_minio_client():
     secretAccessKey = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}SecretAccessKey').text
     sessionToken = creds.find('{https://sts.amazonaws.com/doc/2011-06-15/}SessionToken').text
 
+    return accessKeyId, secretAccessKey, sessionToken, minio_url
+
+
+def _get_storage_options():
+    accessKeyId, secretAccessKey, sessionToken, minio_url = _get_secrets()
+
+    return {
+        "key": accessKeyId,
+        "secret": secretAccessKey,
+        "token": sessionToken,
+        "client_kwargs": {"endpoint_url": minio_url}
+    }
+
+
+def get_minio_client():
+    accessKeyId, secretAccessKey, sessionToken, minio_url = _get_secrets()
+
     s3_client = boto3.client(
         's3',
         endpoint_url=minio_url,
@@ -46,3 +64,20 @@ def get_minio_client():
     )
 
     return s3_client
+
+
+def read_csv(file, *args, **kwargs):
+    return pandas.read_csv(
+        file,
+        storage_options=_get_storage_options(),
+        *args,
+        **kwargs,
+    )
+
+def to_csv(file, *args, **kwargs):
+    return pandas.to_csv(
+        file,
+        storage_options=_get_storage_options(),
+        *args,
+        **kwargs,
+    )
