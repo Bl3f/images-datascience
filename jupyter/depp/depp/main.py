@@ -74,8 +74,8 @@ def read_csv(file, *args, **kwargs):
         **kwargs,
     )
 
-def to_csv(file, *args, **kwargs):
-    return pandas.to_csv(
+def to_csv(df, file, *args, **kwargs):
+    return df.to_csv(
         file,
         storage_options=_get_storage_options(),
         *args,
