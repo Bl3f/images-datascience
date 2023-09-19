@@ -177,6 +177,7 @@ jobs:
       test: false
       external_base_image: true
       base_image: openresty/openresty:alpine-fat
+      branch: ${{ github.ref }}
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
