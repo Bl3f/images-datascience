@@ -1,0 +1,6 @@
+[
+    {
+        "base_image":"openresty/openresty:alpine-fat",
+        "output_image":"nginx-sso:latest"
+    }
+]
