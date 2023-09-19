@@ -1,4 +1,4 @@
 schemaVersion: "2.0.0"
 metadataTest:
-  user: 1000
+  user: 900
   workdir: "/home/onyxia/work"
