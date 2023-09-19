@@ -175,6 +175,7 @@ jobs:
       image: nginx-sso
       context: nginx-sso
       test: false
+      external_base_image: true
       base_image: openresty/openresty:alpine-fat
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
