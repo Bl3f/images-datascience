@@ -28,7 +28,7 @@ RUN luarocks install lua-resty-openidc
 
 COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-USER 1000
+USER 900
 
 ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
 EXPOSE 80
