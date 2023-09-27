@@ -15,4 +15,4 @@ COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY run.sh /opt/run.sh
 
 CMD ["bash", "/opt/run.sh"]
-EXPOSE 80
+EXPOSE 3002
