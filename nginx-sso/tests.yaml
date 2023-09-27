@@ -1,4 +1,5 @@
 schemaVersion: "2.0.0"
-metadataTest:
-  user: 0
-  workdir: "/home/onyxia/work"
+fileExistenceTests:
+  - name: default.conf
+    path: /etc/nginx/conf.d/
+    shouldExist: true
