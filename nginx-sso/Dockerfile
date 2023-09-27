@@ -27,8 +27,13 @@ RUN apk add --no-cache gcc
 RUN luarocks install lua-resty-openidc
 
 COPY conf.d/default.conf /etc/nginx/conf.d/default.conf
+COPY run.sh /opt/run.sh
+RUN chown -R root:100 /etc/nginx/conf.d/
+RUN chmod -R g+w /etc/nginx/conf.d/
+RUN chown 900 /opt/run.sh
+RUN chmod u+x /opt/run.sh
 
 USER 900
 
-ENTRYPOINT ["/usr/local/openresty/nginx/sbin/nginx", "-g", "daemon off;"]
+CMD ["bash", "/opt/run.sh"]
 EXPOSE 80
