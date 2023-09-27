@@ -33,7 +33,5 @@ RUN chmod -R g+w /etc/nginx/conf.d/
 RUN chown 900 /opt/run.sh
 RUN chmod u+x /opt/run.sh
 
-USER 900
-
 CMD ["bash", "/opt/run.sh"]
 EXPOSE 80
