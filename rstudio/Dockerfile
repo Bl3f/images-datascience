@@ -24,6 +24,15 @@ RUN /rocker_scripts/install_rstudio.sh && \
     # Clean
     rm -rf /var/lib/apt/lists/*
 
-EXPOSE 8787
+RUN apt-get update -y
+RUN apt-get install -y python3 python3-pip supervisor
+RUN apt-get clean
 
-CMD ["/init"]
+RUN pip install Flask requests
+
+COPY proxy.py /opt/proxy.py
+COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
+
+EXPOSE 5000
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.ini"]
