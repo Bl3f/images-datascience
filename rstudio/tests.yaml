@@ -2,7 +2,7 @@ schemaVersion: "2.0.0"
 metadataTest:
   user: "root"
   workdir: "/home/onyxia/work"
-  exposedPorts: ["8787"]
+  exposedPorts: ["5000"]
 fileExistenceTests:
   - name: "user home"
     path: "/home/onyxia"
