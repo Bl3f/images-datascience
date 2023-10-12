@@ -22,7 +22,7 @@ jobs:
       image: rstudio
       context: rstudio
       test: true
-      base_image: cblefari/onyxia-r-datascience
+      base_image: cblefari/r-datascience
       r_version_1: 4.2.3
       branch: ${{ github.ref }}
     secrets:
