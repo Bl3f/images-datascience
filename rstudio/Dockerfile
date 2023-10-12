@@ -6,6 +6,8 @@ SHELL ["/bin/bash", "-c"]
 ENV DEFAULT_USER=${USERNAME}
 ENV USERID=${UID}
 ENV GROUPID=${GID}
+RUN useradd -ms /bin/bash rstudio
+
 
 ENV PATH="/usr/lib/rstudio-server/bin:$PATH"
 
