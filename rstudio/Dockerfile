@@ -6,14 +6,14 @@ SHELL ["/bin/bash", "-c"]
 ENV DEFAULT_USER=${USERNAME}
 ENV USERID=${UID}
 ENV GROUPID=${GID}
-RUN useradd -ms /bin/bash rstudio
 
 
 ENV PATH="/usr/lib/rstudio-server/bin:$PATH"
 
 ARG RSTUDIO_CONF_FILE="/etc/rstudio/rsession.conf"
 
-USER root 
+USER root
+RUN useradd -ms /bin/bash rstudio
 
 # Install Rstudio using rocker's install scripts
 RUN /rocker_scripts/install_rstudio.sh && \
