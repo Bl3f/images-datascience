@@ -45,8 +45,13 @@ RUN curl -fsSL https://code-server.dev/install.sh | bash && \
 # Copy custom VSCode User settings
 COPY --chown=${USERNAME}:${GROUPNAME} settings/User.json ${USER_CONFIG_DIR}/settings.json
 
-USER 1000
+RUN apt-get update -y
+RUN apt-get install -y python3 python3-pip supervisor
+RUN apt-get clean
 
-EXPOSE 8080
+COPY proxy.py /opt/proxy.py
+COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
 
-CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "${WORKSPACE_DIR}"]
+EXPOSE 5000
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.ini"]

@@ -30,8 +30,6 @@ RUN apt-get update -y
 RUN apt-get install -y python3 python3-pip supervisor
 RUN apt-get clean
 
-RUN pip install Flask requests
-
 COPY proxy.py /opt/proxy.py
 COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
 
