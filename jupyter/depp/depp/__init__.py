@@ -1,1 +1,1 @@
-from .main import get_minio_client, read_csv, to_csv
+from .main import get_minio_client, read_csv, to_csv, read_parquet, to_parquet
