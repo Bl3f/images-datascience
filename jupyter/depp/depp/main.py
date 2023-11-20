@@ -81,3 +81,19 @@ def to_csv(df, file, *args, **kwargs):
         *args,
         **kwargs,
     )
+
+def read_parquet(file, *args, **kwargs):
+    return pandas.read_parquet(
+        file,
+        storage_options=_get_storage_options(),
+        *args,
+        **kwargs,
+    )
+
+def to_parquet(file, *args, **kwargs):
+    return pandas.to_parquet(
+        file,
+        storage_options=_get_storage_options(),
+        *args,
+        **kwargs,
+    )
