@@ -25,7 +25,7 @@ RUN /opt/install-jupyterlab.sh && \
         mamba clean --all -f -y; \
     fi
 
-RUN pip install keycloakauthenticator
+RUN pip install keycloakauthenticator==3.3.0
 
 COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${HOME}/.jupyter/jupyter_lab_config.py
 

@@ -18,7 +18,7 @@ c = get_config()  # noqa
 ## Set the log level by value or name.
 #  Choices: any of [0, 10, 20, 30, 40, 50, 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL']
 #  Default: 30
-# c.Application.log_level = 30
+c.Application.log_level = 0
 
 ## Configure additional log handlers.
 #
@@ -108,7 +108,7 @@ def pre_spawn_hook(authenticator, spawner, auth_state):
     # spawner.environment['OAUTH_INSPECTION_ENDPOINT'] = authenticator.userdata_url.replace('https://', '')
     # spawner.user_uid = auth_state['oauth_user']['cern_uid']
     # decoded_token = authenticator._decode_token(auth_state['access_token'])
-    #spawner.user_roles = authenticator.claim_roles_key(authenticator, decoded_token)
+    # spawner.user_roles = authenticator.claim_roles_key(authenticator, decoded_token)
 c.KeyCloakAuthenticator.pre_spawn_hook = pre_spawn_hook
 
 #Configure token signature verification
