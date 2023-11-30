@@ -90,10 +90,11 @@ def read_parquet(file, *args, **kwargs):
         **kwargs,
     )
 
-def to_parquet(file, *args, **kwargs):
-    return pandas.to_parquet(
+def to_parquet(df, file, *args, **kwargs):
+    return df.to_parquet(
         file,
         storage_options=_get_storage_options(),
         *args,
         **kwargs,
+
     )
