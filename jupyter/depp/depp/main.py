@@ -7,7 +7,7 @@ import pandas
 
 def _get_secrets():
     base_url = f"https://{os.environ['PROJECT_HOSTNAME']}"
-    minio_url = "https://minio-idee.depp.in.adc.education.fr/"
+    minio_url = os.environ['MINIO_URL']
     headers = {
         'Authorization': 'token %s' % os.environ["JPY_API_TOKEN"]
     }
