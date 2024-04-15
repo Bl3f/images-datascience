@@ -26,7 +26,6 @@ RUN /opt/install-jupyterlab.sh && \
     fi
 
 RUN pip install keycloakauthenticator==3.3.0
-COPY auth.py /opt/mamba/lib/python3.10/site-packages/keycloakauthenticator/auth.py
 
 COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${HOME}/.jupyter/jupyter_lab_config.py
 
