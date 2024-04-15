@@ -95,7 +95,7 @@ c.KeyCloakAuthenticator.userdata_params = {'state': 'state'}
 c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
 
 # If you need to set a different scope, like adding the offline option for longer lived refresh token
-c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email']
+c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email', os.getenv("REQUIRED_SCOPE")]
 # Only allow users with this specific roles (none, to allow all)
 c.KeyCloakAuthenticator.allowed_roles = []
 
