@@ -27,6 +27,8 @@ RUN /opt/install-jupyterlab.sh && \
 
 RUN pip install keycloakauthenticator==3.3.0
 
+COPY awful_override_auth.py /opt/mamba/lib/python3.10/site-packages/keycloakauthenticator/auth.py
+
 COPY --chown=${USERNAME}:${GROUPNAME} config/jupyter_lab_config.py ${HOME}/.jupyter/jupyter_lab_config.py
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \

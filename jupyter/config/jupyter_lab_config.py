@@ -97,7 +97,14 @@ c.KeyCloakAuthenticator.oidc_issuer = os.getenv("KEYCLOAK_OIDC_ISSUER")
 # If you need to set a different scope, like adding the offline option for longer lived refresh token
 c.KeyCloakAuthenticator.scope = ['openid', 'profile', 'email', os.getenv("REQUIRED_SCOPE")]
 # Only allow users with this specific roles (none, to allow all)
-c.KeyCloakAuthenticator.allowed_roles = []
+c.KeyCloakAuthenticator.allowed_roles = [os.getenv("REQUIRED_SCOPE")]
+
+# If you have the roles in a non default place inside the user token, you can retrieve them
+# This must return a set
+def claim_roles_key(env, token):
+    return set(token.get('roles', []))
+c.KeyCloakAuthenticator.claim_roles_key = claim_roles_key
+
 
 # Request access tokens for other services by passing their id's (this uses the token exchange mechanism)
 c.KeyCloakAuthenticator.exchange_tokens = ["minio"]
