@@ -31,6 +31,7 @@ RUN apt-get install -y python3 python3-pip supervisor
 RUN apt-get clean
 
 COPY proxy.py /opt/proxy.py
+COPY install.sh /opt/install.sh
 COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
 
 EXPOSE 5000
