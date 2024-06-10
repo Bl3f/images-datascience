@@ -2,7 +2,7 @@
 
 # Define the URL of the R package tar.gz file
 PACKAGE_NAME="depp_0.1.4.tar.gz"
-PACKAGE_URL="https://minio.idee-prod.depp.in.adc.education.fr/$PACKAGE_NAME"
+PACKAGE_URL="https://minio.idee-prod.depp.in.adc.education.fr/artifacts/$PACKAGE_NAME"
 
 # Define the temporary download directory
 DOWNLOAD_DIR="/tmp/r_package_download"
