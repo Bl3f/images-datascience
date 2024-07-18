@@ -120,7 +120,6 @@ jobs:
       test: true
       base_image: r-datascience
       r_version_1: 4.2.3
-      r_version_2: 4.1.3
       branch: ${{ github.ref }}
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
