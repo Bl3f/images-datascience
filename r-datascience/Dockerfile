@@ -30,6 +30,31 @@ RUN --mount=type=secret,id=github_token \
         RJDemetra \
         RPostgreSQL \
         RSQLite \
+        job \
+        writexl \ 
+        kableExtra \
+        rdd \
+        ggtext \
+        magick \
+        plm \
+        lmtest \
+        AER \
+        ivpack \
+        fastDummies \
+        causalTree \
+        plyr \
+        tidyverse \
+        tidyr \
+        dplyr \
+        ggplot2 \ 
+        plm \
+        stargazer \
+        stringr \ 
+        fixest \ 
+        ggeffects \
+        knitr \ 
+        janitor \ 
+        haven \
         targets && \
     # Install gouvdown
     export GITHUB_PAT=`cat /run/secrets/github_token` && \
