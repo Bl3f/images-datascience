@@ -18,9 +18,11 @@ RUN /opt/install-quarto.sh
 RUN /rocker_scripts/install_shiny_server.sh
 
 # Installer les bundles de packages Rocker
-RUN /rocker_scripts/install_tidyverse.sh && \
-    /rocker_scripts/install_verse.sh && \
-    /rocker_scripts/install_geospatial.sh
+RUN /rocker_scripts/install_tidyverse.sh
+
+RUN /rocker_scripts/install_verse.sh
+
+RUN /rocker_scripts/install_geospatial.sh
 
 # Réinstaller les librairies système qui pourraient avoir été supprimées par autoremove dans les scripts Rocker
 RUN /opt/install-system-libs.sh
