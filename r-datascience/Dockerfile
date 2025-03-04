@@ -51,7 +51,7 @@ RUN install2.r -e -s plm
 RUN install2.r -e -s lmtest
 # Ne fonctionne pas
 #RUN install2.r -e -s AER
-RUN install2.r -e -s ivpack
+#RUN install2.r -e -s ivpack
 RUN install2.r -e -s fastDummies
 RUN install2.r -e -s causalTree
 RUN install2.r -e -s plyr
