@@ -43,7 +43,8 @@ RUN install2.r -e -s RSQLite
 RUN install2.r -e -s job
 RUN install2.r -e -s writexl
 RUN install2.r -e -s kableExtra
-RUN install2.r -e -s rdd
+# Ne fonctionne pas avec la version actuel
+#RUN install2.r -e -s rdd
 RUN install2.r -e -s ggtext
 RUN install2.r -e -s magick
 RUN install2.r -e -s plm
