@@ -5,25 +5,28 @@ SHELL ["/bin/bash", "-c"]
 
 USER root
 
-# Install additional libraries and R packages for datascience
-RUN --mount=type=secret,id=github_token \
-    apt-get update && \
+# Mettre à jour les paquets et installer les dépendances système
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         language-pack-fr \
-        libsecret-1-dev && \
-    # Install quarto
-    /opt/install-quarto.sh && \
-    # Install Shiny Server
-    /rocker_scripts/install_shiny_server.sh && \
-    # Install packages bundles from rocker
-    /rocker_scripts/install_tidyverse.sh && \
+        libsecret-1-dev
+
+# Installer Quarto
+RUN /opt/install-quarto.sh
+
+# Installer Shiny Server
+RUN /rocker_scripts/install_shiny_server.sh
+
+# Installer les bundles de packages Rocker
+RUN /rocker_scripts/install_tidyverse.sh && \
     /rocker_scripts/install_verse.sh && \
-    /rocker_scripts/install_geospatial.sh && \
-    # Re-install system libs that may have been removed by autoremove in rocker scripts
-    /opt/install-system-libs.sh && \
-    # Install additional R packages
-    # Add comment to force build 2
-    install2.r -e -s \
+    /rocker_scripts/install_geospatial.sh
+
+# Réinstaller les librairies système qui pourraient avoir été supprimées par autoremove dans les scripts Rocker
+RUN /opt/install-system-libs.sh
+
+# Installer des packages R supplémentaires
+RUN install2.r -e -s \
         keyring \
         odbc \
         quarto \
@@ -32,7 +35,7 @@ RUN --mount=type=secret,id=github_token \
         RPostgreSQL \
         RSQLite \
         job \
-        writexl \ 
+        writexl \
         kableExtra \
         rdd \
         ggtext \
@@ -47,27 +50,30 @@ RUN --mount=type=secret,id=github_token \
         tidyverse \
         tidyr \
         dplyr \
-        ggplot2 \ 
+        ggplot2 \
         plm \
         stargazer \
-        stringr \ 
-        fixest \ 
+        stringr \
+        fixest \
         ggeffects \
-        knitr \ 
-        janitor \ 
+        knitr \
+        janitor \
         haven \
-        targets && \
-    # Install gouvdown
+        targets
+
+# Installer gouvdown
+RUN --mount=type=secret,id=github_token \
     export GITHUB_PAT=`cat /run/secrets/github_token` && \
     installGithub.r spyrales/gouvdown && \
     installGithub.r spyrales/gouvdown.fonts && \
     find /usr/local/lib/R/site-library/gouvdown.fonts -name "*.ttf" -exec cp '{}' /usr/local/share/fonts \; && \
     fc-cache && \
-    R -e "gouvdown::check_fonts_in_r()" && \
-    # Fix permissions
-    chown -R ${USERNAME}:${GROUPNAME} ${HOME} ${R_HOME} && \
-    # Clean
-    rm -rf /var/lib/apt/lists/*
+    R -e "gouvdown::check_fonts_in_r()"
+
+# Corriger les permissions
+RUN chown -R ${USERNAME}:${GROUPNAME} ${HOME} ${R_HOME}
+
+RUN rm -rf /var/lib/apt/lists/*
 
 USER 1000
 
