@@ -24,6 +24,7 @@ RUN /rocker_scripts/install_tidyverse.sh
 #RUN /rocker_scripts/install_verse.sh
 
 COPY install_verse.sh /opt/install_verse.sh
+RUN chmod +x /opt/install_verse.sh
 RUN /opt/install_verse.sh
 
 RUN /rocker_scripts/install_geospatial.sh
