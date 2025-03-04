@@ -22,7 +22,7 @@ RUN --mount=type=secret,id=github_token \
     # Re-install system libs that may have been removed by autoremove in rocker scripts
     /opt/install-system-libs.sh && \
     # Install additional R packages
-    # Add comment to force build
+    # Add comment to force build 2
     install2.r -e -s \
         keyring \
         odbc \
