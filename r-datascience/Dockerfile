@@ -49,7 +49,8 @@ RUN install2.r -e -s ggtext
 RUN install2.r -e -s magick
 RUN install2.r -e -s plm
 RUN install2.r -e -s lmtest
-RUN install2.r -e -s AER
+# Ne fonctionne pas
+#RUN install2.r -e -s AER
 RUN install2.r -e -s ivpack
 RUN install2.r -e -s fastDummies
 RUN install2.r -e -s causalTree
