@@ -21,11 +21,11 @@ RUN /rocker_scripts/install_shiny_server.sh
 RUN /rocker_scripts/install_tidyverse.sh
 
 #Ne fonctionne plus, il faut passer en 4.2.3
-RUN /rocker_scripts/install_verse.sh
+#RUN /rocker_scripts/install_verse.sh
 
-#COPY install_verse.sh /opt/install_verse.sh
-#RUN chmod +x /opt/install_verse.sh
-#RUN /opt/install_verse.sh
+COPY install_verse.sh /opt/install_verse.sh
+RUN chmod +x /opt/install_verse.sh
+RUN /opt/install_verse.sh
 
 RUN /rocker_scripts/install_geospatial.sh
 
