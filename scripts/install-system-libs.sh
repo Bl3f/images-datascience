@@ -1,18 +1,17 @@
-#!/bin/bash
 set -e
 
-# a function to install apt packages only if they are not installed
-# source : https://github.com/rocker-org/rocker-versioned2/blob/master/scripts
-function apt_install() {
-    if ! dpkg -s "$@" >/dev/null 2>&1; then
-        if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
-            apt-get update
-        fi
-        apt-get install -y --no-install-recommends "$@"
-    fi
-}
+# Add custom PPAs to get most up-to-date software
+apt-get update
+apt-get install -y --no-install-recommends gnupg2 software-properties-common wget
+# PPA for git
+add-apt-repository -y ppa:git-core/ppa
+# PPA for postgresql-client
+echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 
-apt_install \
+# Install system libraries
+apt-get update
+apt-get install -y --no-install-recommends \
     bash-completion \
     build-essential \
     ca-certificates \
@@ -21,11 +20,12 @@ apt_install \
     jq \
     less \
     locales \
+    lsb-core \
     nano \
     openssh-client \
     postgresql-client \
+    python3-pip \
     sudo \
     tini \
     unzip \
-    vim \
-    wget
+    vim
