@@ -23,7 +23,7 @@ jobs:
       context: rstudio
       test: true
       base_image: cblefari/r-datascience
-      r_version_1: 4.2.3
+      r_version_1: 4.4.2
       branch: ${{ github.ref }}
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
