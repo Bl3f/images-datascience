@@ -38,6 +38,11 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
 COPY depp/ ${HOME}/depp
 RUN pip install ${HOME}/depp
 
+#Add custom script for git
+COPY --chown=${USERNAME}:${GROUPNAME} install_git_jupyter.sh ${HOME}/install_git_jupyter.sh
+RUN chmod 700 ${HOME}/install_git_jupyter.sh
+
+
 USER 1000
 
 EXPOSE 8888
