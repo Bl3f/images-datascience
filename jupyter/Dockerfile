@@ -42,6 +42,18 @@ RUN pip install ${HOME}/depp
 COPY --chown=${USERNAME}:${GROUPNAME} install_git_jupyter.sh ${HOME}/install_git_jupyter.sh
 RUN chmod 700 ${HOME}/install_git_jupyter.sh
 
+RUN apt-get update && \
+    apt-get install -y iptables && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "#!/bin/sh\n\
+iptables -A OUTPUT -p tcp -d idees-prod.depp.in.adc.education.fr -j ACCEPT\n\
+iptables -A OUTPUT -p tcp -d *.idee-prod.depp.in.adc.education.fr -j ACCEPT\n\
+iptables -A OUTPUT -p tcp -j DROP" > /usr/local/bin/configure_iptables.sh && \
+    chmod +x /usr/local/bin/configure_iptables.sh
+
+# Exécuter le script au démarrage
+RUN echo "/usr/local/bin/configure_iptables.sh" >> /etc/container_environment_init.sh
 
 USER 1000
 
