@@ -4,6 +4,9 @@
 PACKAGE_NAME="depp_0.1.4.tar.gz"
 PACKAGE_URL="https://minio.idee-prod.depp.in.adc.education.fr/artifacts/$PACKAGE_NAME"
 
+SCRIPT_GIT_NAME="install_git_0.1.0.sh"
+SCRIPT_GIT_URL="https://minio.idee-prod.depp.in.adc.education.fr/artifacts/$SCRIPT_GIT_NAME"
+
 # Define the temporary download directory
 DOWNLOAD_DIR="/tmp/r_package_download"
 
@@ -18,6 +21,18 @@ if [ $? -ne 0 ]; then
     echo "Error: Failed to download the package from $PACKAGE_URL"
     exit 1
 fi
+
+curl -o "$DOWNLOAD_DIR/$SCRIPT_GIT_NAME" "$SCRIPT_GIT_URL"
+
+# Check if the download was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to download the package from $SCRIPT_GIT_URL"
+    exit 1
+fi
+
+cp $DOWNLOAD_DIR/$SCRIPT_GIT_NAME /home/rstudio/$SCRIPT_GIT_NAME
+chown rstudio /home/rstudio/$SCRIPT_GIT_NAME
+chmod 700 /home/rstudio/$SCRIPT_GIT_NAME
 
 # Install the downloaded R package
 R CMD INSTALL "$DOWNLOAD_DIR/$PACKAGE_NAME"
