@@ -13,7 +13,7 @@ USER root
 
 COPY conda-env.yml .
 
-RUN wget -q https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O mambaforge.sh && \
+RUN wget -q https://pj.depp.education.fr/fichier/Miniforge3-25.3.1-0-Linux-x86_64.sh -O mambaforge.sh && \
     # Install mambaforge latest version
     /bin/bash mambaforge.sh -b -p "${MAMBA_DIR}" && \
     # Set specified Python version in base Conda env

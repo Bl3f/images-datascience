@@ -5,9 +5,6 @@ SHELL ["/bin/bash", "-c"]
 
 USER root
 
-RUN echo "127.0.0.1 github.com" >> /etc/hosts && \
-    echo "127.0.0.1 www.github.com" >> /etc/hosts
-
 # Install JupyterLab
 RUN /opt/install-jupyterlab.sh && \
     # If using Conda and Julia is installed, make its kernel available in Jupyter
@@ -41,12 +38,20 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash - && \
 COPY depp/ ${HOME}/depp
 RUN pip install ${HOME}/depp
 
+
+RUN apt-get update && \
+    apt-get install -y supervisor && \
+    rm -rf /var/lib/apt/lists/*
+
 #Add custom script for git
 COPY --chown=${USERNAME}:${GROUPNAME} install_git_jupyter.sh ${HOME}/install_git_jupyter.sh
 RUN chmod 700 ${HOME}/install_git_jupyter.sh
+
+COPY install.sh /opt/install.sh
 
 USER 1000
 
 EXPOSE 8888
 
-CMD ["jupyterhub", "-f", "${HOME}/.jupyter/jupyter_lab_config.py"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+#CMD ["jupyterhub", "-f", "${HOME}/.jupyter/jupyter_lab_config.py"]

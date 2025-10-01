@@ -1,0 +1,1 @@
+echo "127.0.0.1 github.com api.github.com raw.github.com" >> /etc/hosts
