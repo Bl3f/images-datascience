@@ -30,6 +30,24 @@ RUN apt-get update -y
 RUN apt-get install -y python3 python3-pip supervisor
 RUN apt-get clean
 
+# Installer iptables
+RUN apt-get update && \
+    apt-get install -y iptables && \
+    rm -rf /var/lib/apt/lists/*
+
+# Ajouter un script pour bloquer github.com
+RUN echo "#!/bin/sh\n\
+ipset create github_blocked hash:net\n\
+for ip in $(dig +short github.com api.github.com raw.github.com | grep -v '^;'); do\n\
+  ipset add github_blocked $ip\n\
+done\n\
+iptables -A OUTPUT -p tcp -m set --match-set github_blocked dst -j DROP\n\
+iptables -A OUTPUT -p udp -m set --match-set github_blocked dst -j DROP" > /block_github.sh && \
+    chmod +x /block_github.sh
+
+# Exécuter le script au démarrage
+RUN echo "/block_github.sh" >> /etc/container_environment_init.sh
+
 COPY proxy.py /opt/proxy.py
 COPY install.sh /opt/install.sh
 COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
