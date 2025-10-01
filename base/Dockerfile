@@ -46,7 +46,7 @@ RUN chmod -R +x /opt/ && \
     OS="$(uname | tr '[:upper:]' '[:lower:]')" && \
     ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" && \
     KREW="krew-${OS}_${ARCH}" && \
-    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" && \
+    curl -fsSLO "https://pj.depp.education.fr/fichier/krew-linux_amd64.tar.gz" && \
     tar zxvf "${KREW}.tar.gz" && \
     ./"${KREW}" install krew && \
     cd ${WORKSPACE_DIR} && \
@@ -66,7 +66,7 @@ RUN chmod -R +x /opt/ && \
     unzip vault.zip -d /usr/local/bin/ && \
     vault -autocomplete-install && \
     # argo-workflows cli
-    curl -sLO https://github.com/argoproj/argo-workflows/releases/latest/download/argo-linux-amd64.gz && \
+    curl -sLO https://pj.depp.education.fr/fichier/argo-linux-amd64.gz && \
     gunzip argo-linux-amd64.gz && \
     chmod +x argo-linux-amd64 && \
     mv ./argo-linux-amd64 /usr/local/bin/argo && \
