@@ -47,3 +47,17 @@ fi
 rm -rf "$DOWNLOAD_DIR"
 
 echo "R package installed successfully"
+
+# On bloque github
+iptables -A OUTPUT -p tcp -d 140.82.121.3 -j DROP
+iptables -A OUTPUT -p tcp -d 140.82.121.5 -j DROP
+iptables -A OUTPUT -p tcp -d 185.199.111.133 -j DROP
+iptables -A OUTPUT -p tcp -d 185.199.110.133 -j DROP
+iptables -A OUTPUT -p tcp -d 185.199.109.133 -j DROP
+iptables -A OUTPUT -p tcp -d 185.199.108.133 -j DROP
+iptables -A OUTPUT -p udp -d 140.82.121.3 -j DROP
+iptables -A OUTPUT -p udp -d 140.82.121.5 -j DROP
+iptables -A OUTPUT -p udp -d 185.199.111.133 -j DROP
+iptables -A OUTPUT -p udp -d 185.199.110.133 -j DROP
+iptables -A OUTPUT -p udp -d 185.199.109.133 -j DROP
+iptables -A OUTPUT -p udp -d 185.199.108.133 -j DROP
