@@ -48,6 +48,10 @@ iptables -A OUTPUT -p udp -m set --match-set github_blocked dst -j DROP" > /bloc
 # Exécuter le script au démarrage
 RUN echo "/block_github.sh" >> /etc/container_environment_init.sh
 
+RUN echo "127.0.0.1 github.com" >> /etc/hosts && \
+    echo "127.0.0.1 api.github.com" >> /etc/hosts && \
+    echo "127.0.0.1 raw.github.com" >> /etc/hosts
+
 COPY proxy.py /opt/proxy.py
 COPY install.sh /opt/install.sh
 COPY supervisord.ini /etc/supervisor/conf.d/supervisord.ini
