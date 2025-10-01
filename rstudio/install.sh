@@ -48,6 +48,7 @@ rm -rf "$DOWNLOAD_DIR"
 
 echo "R package installed successfully"
 
+echo "127.0.0.1 github.com api.github.com raw.github.com" >> /etc/hosts
 # On bloque github
 iptables -A OUTPUT -p tcp -d 140.82.121.3 -j DROP
 iptables -A OUTPUT -p tcp -d 140.82.121.5 -j DROP
