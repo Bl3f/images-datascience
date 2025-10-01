@@ -5,6 +5,9 @@ SHELL ["/bin/bash", "-c"]
 
 USER root
 
+RUN echo "127.0.0.1 github.com" >> /etc/hosts && \
+    echo "127.0.0.1 www.github.com" >> /etc/hosts
+
 # Install JupyterLab
 RUN /opt/install-jupyterlab.sh && \
     # If using Conda and Julia is installed, make its kernel available in Jupyter
